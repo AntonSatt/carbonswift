@@ -1,0 +1,26 @@
+# Copy this file to terraform.tfvars and fill in your values
+# DO NOT commit terraform.tfvars to version control!
+
+# AWS Region (eu-north-1 = Stockholm, Sweden)
+aws_region = "eu-north-1"
+
+# EC2 Instance Type
+instance_type = "t3.micro"
+
+# Grafana Cloud Prometheus Configuration
+# Get these values from your Grafana Cloud account:
+# 1. Go to grafana.com and log in to your stack
+# 2. Navigate to Connections > Add new connection > Hosted Prometheus metrics
+# 3. Copy the Remote Write Endpoint URL, Username, and generate an API token
+
+# Example: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+grafana_cloud_prometheus_url = "https://prometheus-prod-XX-XX.grafana.net/api/prom/push"
+
+# Example: 123456 (your Grafana Cloud instance ID/username)
+grafana_cloud_prometheus_user = "your-instance-id"
+
+# Generate an API token with MetricsPublisher role
+grafana_cloud_api_key = "your-grafana-cloud-api-key"
+
+# Optional: SSH key name for EC2 instances (leave empty if not using)
+# ssh_key_name = "my-key-pair"
