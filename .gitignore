@@ -6,6 +6,8 @@
 .terraform.lock.hcl
 terraform.tfvars
 outputs.json
+tfplan
+
 
 # Python
 __pycache__/
