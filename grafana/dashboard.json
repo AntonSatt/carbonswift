@@ -19,9 +19,35 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 27,
+  "id": 0,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Carbon Shift - AI-Powered Carbon Dashboard",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Pricing & Carbon Emissions Data",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
@@ -80,7 +106,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 2
       },
       "id": 18,
       "options": {
@@ -184,7 +210,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 2
       },
       "id": 19,
       "options": {
@@ -292,7 +318,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 8
+        "y": 10
       },
       "id": 2,
       "options": {
@@ -354,7 +380,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 8
+        "y": 10
       },
       "id": 3,
       "options": {
@@ -414,7 +440,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 8
+        "y": 10
       },
       "id": 4,
       "options": {
@@ -446,7 +472,11 @@
       "type": "stat"
     },
     {
-      "description": "CO2 saved by running in Sweden instead of Germany",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
+      "description": "CO2 savings potential by running in the cleanest region instead of the dirtiest region",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -475,7 +505,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 8
+        "y": 10
       },
       "id": 5,
       "options": {
@@ -498,12 +528,20 @@
       "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
-          "expr": "sum(instance_co2_emissions_g_hour{country=\"DE\"}) - sum(instance_co2_emissions_g_hour{country=\"SE\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "expr": "max(sum by(country) (instance_co2_emissions_g_hour)) - min(sum by(country) (instance_co2_emissions_g_hour))",
+          "hide": false,
+          "instant": false,
           "legendFormat": "Savings",
+          "queryType": "range",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Potential Savings vs Germany",
+      "title": "Highest vs Lowest CO2 Country",
       "type": "stat"
     },
     {
@@ -512,20 +550,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
-      },
-      "id": 1,
-      "panels": [],
-      "title": "Overview",
-      "type": "row"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 13
+        "y": 14
       },
       "id": 6,
       "panels": [],
@@ -660,7 +685,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 15
       },
       "id": 7,
       "options": {
@@ -691,6 +716,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
       "description": "Current CO2 emissions if workload ran in different regions",
       "fieldConfig": {
         "defaults": {
@@ -743,7 +772,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -781,7 +810,7 @@
           "refId": "A"
         }
       ],
-      "title": "\"What If\" Regional Comparison (Current)",
+      "title": "Regional Comparison (Current)",
       "type": "bargauge"
     },
     {
@@ -790,7 +819,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 23
       },
       "id": 9,
       "panels": [],
@@ -934,10 +963,10 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 24
       },
       "id": 10,
       "options": {
@@ -975,7 +1004,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 34
       },
       "id": 11,
       "panels": [],
@@ -983,81 +1012,40 @@
       "type": "row"
     },
     {
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
+      "description": "AI-powered conversational insights for carbon optimization",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 21,
+        "w": 24,
         "x": 0,
-        "y": 32
+        "y": 35
       },
       "id": 12,
       "options": {
+        "cellHeight": "md",
         "code": {
           "language": "plaintext",
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*",
-        "mode": "code"
-      },
-      "pluginVersion": "12.4.0-19174562009.patch3",
-      "title": "🤖 AI Optimization Insight - Web Server",
-      "type": "text"
-    },
-    {
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 32
-      },
-      "id": 13,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
+        "content": "### 🤖 Carbon AI Assistant\n\n---\n\n**You:** Analyze my web server's carbon footprint\n\n**AI Assistant:** I've analyzed your web server in Sweden (eu-north-1). Here's what I found:\n\n✅ **Good News:** You're in one of the cleanest regions!\n- Current emissions: ~3.3 g CO₂/hour\n- Grid intensity: 42 gCO₂/kWh (excellent)\n\n---\n\n**You:** How can I optimize further?\n\n**AI Assistant:** Here are my recommendations:\n\n**💡 Immediate Actions:**\n1. **Stay in Sweden** - You're already in the optimal region\n2. **CPU Optimization** - Your CPU usage varies; consider:\n   - Auto-scaling during low-traffic periods\n   - Container right-sizing\n\n**📊 Potential Savings:**\n- Migration to Germany would **increase** emissions by ~226%\n- Better to optimize workload efficiency here\n\n**🎯 Next Steps:**\n- Monitor CPU patterns for optimization\n- Consider renewable energy credits\n- Schedule batch jobs during off-peak grid hours\n\n---\n\n*💬 Powered by Amazon Bedrock (Claude 3)*",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*",
-        "mode": "markdown"
+        "frameIndex": 0,
+        "mode": "markdown",
+        "showHeader": true
       },
       "pluginVersion": "12.4.0-19174562009.patch3",
-      "title": "🤖 AI Optimization Insight - API Server",
-      "type": "text"
-    },
-    {
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 32
-      },
-      "id": 14,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*",
-        "mode": "markdown"
-      },
-      "pluginVersion": "12.4.0-19174562009.patch3",
-      "title": "🤖 AI Optimization Insight - Compute Worker",
+      "title": "🤖 Daily updates",
       "type": "text"
     },
     {
@@ -1066,102 +1054,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 56
       },
       "id": 15,
       "panels": [],
       "title": "Per-Instance Metrics",
       "type": "row"
-    },
-    {
-      "description": "CO2 emissions breakdown by instance role",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "g/h"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 41
-      },
-      "id": 16,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.4.0-19174562009.patch3",
-      "targets": [
-        {
-          "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
-          "legendFormat": "{{role}}",
-          "refId": "A"
-        }
-      ],
-      "title": "CO2 Emissions by Instance Role (Sweden)",
-      "type": "timeseries"
     },
     {
       "description": "CPU utilization per instance",
@@ -1227,8 +1125,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 41
+        "x": 0,
+        "y": 57
       },
       "id": 17,
       "options": {
@@ -1254,10 +1152,100 @@
       ],
       "title": "CPU Usage by Instance",
       "type": "timeseries"
+    },
+    {
+      "description": "CO2 emissions breakdown by instance role",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "g/h"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 57
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
+      "targets": [
+        {
+          "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
+          "legendFormat": "{{role}}",
+          "refId": "A"
+        }
+      ],
+      "title": "CO2 Emissions by Instance Role (Sweden)",
+      "type": "timeseries"
     }
   ],
   "preload": false,
-  "refresh": "10s",
+  "refresh": "auto",
   "schemaVersion": 42,
   "tags": [
     "carbon",
@@ -1277,5 +1265,5 @@
   "timezone": "browser",
   "title": "CarbonShift - AI-Powered Carbon Dashboard",
   "uid": "e3e2509f-0dec-4762-af6a-e4ab507fd8aa",
-  "version": 4
+  "version": 16
 }
