@@ -56,7 +56,34 @@ Before starting, ensure you have:
 
 3. **IMPORTANT**: Never commit `terraform.tfvars` to version control!
 
-## Step 3: Enable Amazon Bedrock Access
+## Step 3: Configure IAM Permissions
+
+Your AWS user needs specific permissions to deploy this infrastructure.
+
+### Option A: AWS Managed Policies (Easiest) ⭐
+
+Attach these pre-built AWS managed policies to your IAM user:
+
+```bash
+# Via AWS Console: IAM → Users → Your User → Add permissions → Attach policies directly
+# Or via CLI:
+aws iam attach-user-policy --user-name your-user --policy-arn arn:aws:iam::aws:policy/IAMFullAccess
+aws iam attach-user-policy --user-name your-user --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess
+aws iam attach-user-policy --user-name your-user --policy-arn arn:aws:iam::aws:policy/AmazonBedrockFullAccess
+```
+
+**Permissions included:**
+- ✅ `IAMFullAccess` - Create and manage IAM roles for EC2
+- ✅ `AmazonEC2FullAccess` - Create and manage EC2 instances
+- ✅ `AmazonBedrockFullAccess` - Access AI models for insights
+
+**Note**: These are broad permissions suitable for testing/hackathons. For production, use more restrictive custom policies.
+
+### Option B: Custom Policy (More Restrictive)
+
+If you encounter the 2048-character limit for inline policies, see `iam-policy-compact.json` for a minimal custom policy.
+
+## Step 4: Enable Amazon Bedrock Access
 
 Amazon Bedrock requires model access to be enabled in your AWS account:
 
@@ -220,6 +247,82 @@ This will:
 
 **Note**: Grafana Cloud data is NOT affected.
 
+## Testing & Workflow
+
+### Using the Utility Scripts
+
+**`verify.sh`** - Test all endpoints
+```bash
+./scripts/verify.sh
+# Tests Node Exporter, Carbon Service, and AI endpoints
+# Shows sample metrics
+```
+
+**`destroy.sh`** - Tear down infrastructure
+```bash
+./scripts/destroy.sh
+# Removes all AWS resources
+# Saves costs when not in use
+# Your code and Grafana Cloud data are SAFE
+```
+
+**`deploy.sh`** - Deploy/redeploy infrastructure
+```bash
+./scripts/deploy.sh
+# Creates all infrastructure from scratch
+# Takes ~10 minutes
+```
+
+### The Destroy → Deploy Cycle
+
+**It's completely safe to destroy and redeploy!**
+
+```bash
+./scripts/destroy.sh   # Remove everything (~5 min)
+./scripts/deploy.sh    # Recreate everything (~10 min)
+```
+
+**What's preserved:**
+- ✅ All your code files
+- ✅ Grafana Cloud metrics history
+- ✅ Dashboard configurations
+- ✅ `terraform.tfvars` credentials
+
+**What's recreated:**
+- ↻ Fresh EC2 instances
+- ↻ Security groups
+- ↻ IAM roles
+
+**Use cases:**
+- Save costs overnight
+- Reset to clean state
+- Test deployment process
+
+### SSH Access Without Keys
+
+If you didn't configure SSH keys, use **EC2 Instance Connect** (browser-based terminal):
+
+1. Go to AWS Console → EC2 → Instances
+2. Select your instance
+3. Click **"Connect"** → **"EC2 Instance Connect"**
+4. Browser terminal opens instantly
+5. Run commands like `stress-ng --cpu 2 --timeout 300s`
+
+**No SSH keys required!** ✅
+
+### When to Use `terraform taint`
+
+Only needed when **code changes** but instances are still running:
+
+```bash
+# Modified code in user_data.sh?
+cd terraform
+terraform taint aws_instance.compute_worker
+terraform apply
+```
+
+**NOT needed** after `destroy.sh` - instances don't exist, so `deploy.sh` creates fresh ones automatically.
+
 ## Troubleshooting
 
 ### Services not starting
@@ -271,6 +374,86 @@ These are typical values and will still demonstrate the "What If" concept.
 - For production: restrict to Grafana Cloud IPs and your IP
 - SSH access on port 22 (add SSH key via `ssh_key_name` variable)
 - IAM role follows least-privilege for Bedrock access
+
+## FAQ
+
+### Why don't CO2 emissions spike during stress tests?
+
+The current carbon service calculates CO2 using a **constant power consumption** value (7W TDP for t3.micro), regardless of CPU usage.
+
+**What happens:**
+- ✅ CPU usage increases during stress test
+- ❌ Power consumption stays at 7W (constant)
+- ❌ CO2 emissions stay flat
+
+This is a **known limitation** for the hackathon proof-of-concept. The architecture **supports** dynamic calculation based on CPU, but implementing it requires:
+- Reading CPU metrics from Node Exporter or `/proc/stat`
+- Scaling power between idle (2W) and max (7W) based on CPU %
+- Complex rate calculations over time
+
+**For the demo:** Focus on the "What If" regional analysis and AI insights - these work perfectly!
+
+### How do dashboard metrics update?
+
+**Automatic (every 15-30 seconds):**
+- ✅ CO2 emissions
+- ✅ Grid carbon intensity
+- ✅ CPU usage
+- ✅ System metrics
+- ✅ "What If" comparisons
+
+**Manual only:**
+- ❌ AI insights (run `curl http://<IP>:8080/ai-insight` when needed)
+
+**Reason:** AI calls cost money and take time. Manual querying is better for demos.
+
+### Can I redeploy after running destroy.sh?
+
+**Yes! Absolutely safe.** 
+
+```bash
+./scripts/destroy.sh   # Delete everything
+./scripts/deploy.sh    # Recreate everything
+```
+
+Your code, credentials, and Grafana Cloud data are preserved locally. The deploy script rebuilds AWS infrastructure from scratch.
+
+### Do I need to run terraform taint every time?
+
+**No!** Only in specific situations:
+
+**Need taint:**
+- ✅ You modified `user_data.sh` code
+- ✅ Instances are still running
+- ✅ Want to apply code changes
+
+**Don't need taint:**
+- ✅ After `destroy.sh` (instances don't exist)
+- ✅ Fresh deployment
+- ✅ Never modified code
+
+### How do I access instances without SSH keys?
+
+Use **EC2 Instance Connect** (browser-based):
+1. AWS Console → EC2 → Instances
+2. Select instance → Click "Connect"
+3. Choose "EC2 Instance Connect"
+4. Browser terminal opens - no keys needed!
+
+### Why use managed policies instead of custom policies?
+
+**AWS Managed Policies** (IAMFullAccess, EC2FullAccess, BedrockFullAccess):
+- ✅ No 2048-character limit
+- ✅ Pre-built and tested by AWS
+- ✅ Perfect for hackathons/testing
+- ✅ Simple to attach
+
+**Custom policies:**
+- ⚠️ Hit 2048-character inline policy limit
+- ⚠️ Tedious to debug permissions
+- ✅ More secure for production
+
+For a hackathon, managed policies are the pragmatic choice!
 
 ## Support and Contributions
 

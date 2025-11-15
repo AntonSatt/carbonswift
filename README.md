@@ -40,9 +40,28 @@ CarbonShift/
 
 ## Quick Start
 
-1. Deploy infrastructure: `cd terraform && terraform apply`
-2. Deploy carbon service: `cd carbon-service && ./deploy.sh`
-3. Import Grafana dashboard from `grafana/dashboard.json`
+```bash
+# 1. Configure Grafana Cloud credentials (see DEPLOYMENT.md)
+cp terraform/terraform.tfvars.example terraform/terraform.tfvars
+# Edit terraform.tfvars with your values
+
+# 2. Deploy infrastructure
+./scripts/deploy.sh
+
+# 3. Verify deployment (wait 5-10 minutes first)
+./scripts/verify.sh
+
+# 4. Import dashboard to Grafana Cloud
+# Upload grafana/dashboard.json via Grafana UI
+```
+
+## Utility Scripts
+
+- **`deploy.sh`** - Deploys all infrastructure (~10 minutes)
+- **`verify.sh`** - Tests all endpoints and services
+- **`destroy.sh`** - Tears down all AWS infrastructure (saves costs)
+
+**Note**: The destroy → deploy cycle is completely safe. Your code and Grafana Cloud data are preserved.
 
 ## Key Features
 
