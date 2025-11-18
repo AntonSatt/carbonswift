@@ -1,45 +1,344 @@
 {
-  "title": "CarbonShift - AI-Powered Carbon Dashboard",
-  "description": "Real-time CO2 emissions monitoring with AI-powered optimization insights",
-  "tags": [
-    "carbon",
-    "sustainability",
-    "ai",
-    "aws",
-    "hackathon"
-  ],
-  "timezone": "browser",
-  "schemaVersion": 38,
-  "version": 1,
-  "refresh": "30s",
-  "time": {
-    "from": "now-1h",
-    "to": "now"
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
   },
+  "description": "Real-time CO2 emissions monitoring with AI-powered optimization insights",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
   "panels": [
     {
-      "id": 1,
-      "type": "row",
-      "title": "Overview",
+      "collapsed": false,
       "gridPos": {
-        "x": 0,
-        "y": 0,
+        "h": 1,
         "w": 24,
-        "h": 1
+        "x": 0,
+        "y": 0
       },
-      "collapsed": false
+      "id": 21,
+      "panels": [],
+      "title": "Carbon Shift - AI-Powered Carbon Dashboard",
+      "type": "row"
     },
     {
-      "id": 2,
-      "type": "stat",
-      "title": "Current CO2 Emissions (Sweden)",
-      "description": "Real-time CO2 emissions from all instances in eu-north-1",
+      "collapsed": false,
       "gridPos": {
+        "h": 1,
+        "w": 24,
         "x": 0,
-        "y": 1,
-        "w": 6,
-        "h": 4
+        "y": 1
       },
+      "id": 20,
+      "panels": [],
+      "title": "Pricing & Carbon Emissions Data",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "grafanacloud-infinity"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.02
+              },
+              {
+                "color": "red",
+                "value": 0.05
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 2
+      },
+      "id": 18,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "country",
+              "text": "country",
+              "type": "string"
+            },
+            {
+              "selector": "price_per_hour",
+              "text": "price_per_hour",
+              "type": "number"
+            }
+          ],
+          "data": "[\r\n    {\"country\": \"Germany\", \"price_per_hour\": 0.012},\r\n    {\"country\": \"France\", \"price_per_hour\": 0.0118},\r\n    {\"country\": \"Britain\", \"price_per_hour\": 0.0118},\r\n    {\"country\": \"Sweden\", \"price_per_hour\": 0.0784}\r\n]",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "grafanacloud-infinity"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "range": true,
+          "refId": "A",
+          "root_selector": "",
+          "source": "inline",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Price comparison",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "grafanacloud-infinity"
+      },
+      "description": "Shows how many grams of CO2 per hour you emit for each dollar spent. Lower is better - less CO2 emissions per dollar means cleaner energy for your money!",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          },
+          "unit": "g"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      "id": 19,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "left",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "country",
+              "text": "country",
+              "type": "string"
+            },
+            {
+              "selector": "co2_per_usd",
+              "text": "co2_per_usd",
+              "type": "number"
+            }
+          ],
+          "data": "[\r\n    {\"country\": \"Germany\", \"co2_per_usd\": 256.7},\r\n    {\"country\": \"France\", \"co2_per_usd\": 126.3},\r\n    {\"country\": \"Britain\", \"co2_per_usd\": 222.0},\r\n    {\"country\": \"Sweden\", \"co2_per_usd\": 42.2}\r\n]",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "grafanacloud-infinity"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "range": true,
+          "refId": "A",
+          "root_selector": "",
+          "source": "inline",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Carbon Intensity per Dollar (g CO2/h per USD)",
+      "transformations": [
+        {
+          "disabled": false,
+          "id": "rowsToFields",
+          "options": {
+            "nameField": "country",
+            "valueField": "efficiency"
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "description": "Real-time CO2 emissions from all instances in eu-north-1",
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "g/h"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
           "expr": "sum(instance_co2_emissions_g_hour{country=\"SE\"})",
@@ -47,54 +346,61 @@
           "refId": "A"
         }
       ],
-      "options": {
-        "graphMode": "area",
-        "colorMode": "value",
-        "justifyMode": "auto",
-        "textMode": "value_and_name",
-        "reduceOptions": {
-          "values": false,
-          "fields": "",
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
-      },
+      "title": "Current CO2 Emissions (Sweden)",
+      "type": "stat"
+    },
+    {
+      "description": "Current carbon intensity of Swedish electricity grid",
       "fieldConfig": {
         "defaults": {
-          "unit": "g/h",
-          "decimals": 2,
+          "decimals": 1,
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "value": null,
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
-                "value": 2,
-                "color": "yellow"
+                "color": "yellow",
+                "value": 100
               },
               {
-                "value": 5,
-                "color": "red"
+                "color": "red",
+                "value": 300
               }
             ]
-          }
-        }
-      }
-    },
-    {
-      "id": 3,
-      "type": "stat",
-      "title": "Grid Carbon Intensity (Sweden)",
-      "description": "Current carbon intensity of Swedish electricity grid",
-      "gridPos": {
-        "x": 6,
-        "y": 1,
-        "w": 6,
-        "h": 4
+          },
+          "unit": "gCO₂/kWh"
+        },
+        "overrides": []
       },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 10
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
           "expr": "grid_carbon_intensity_g_kwh{country=\"SE\"}",
@@ -102,52 +408,59 @@
           "refId": "A"
         }
       ],
-      "options": {
-        "graphMode": "area",
-        "colorMode": "value",
-        "textMode": "value_and_name",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
-      },
+      "title": "Grid Carbon Intensity (Sweden)",
+      "type": "stat"
+    },
+    {
+      "description": "Number of monitored instances",
       "fieldConfig": {
         "defaults": {
-          "unit": "gCO₂/kWh",
-          "decimals": 1,
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "value": null,
-                "color": "green"
+                "color": "red",
+                "value": 0
               },
               {
-                "value": 100,
-                "color": "yellow"
-              },
-              {
-                "value": 300,
-                "color": "red"
+                "color": "green",
+                "value": 3
               }
             ]
-          }
-        }
-      }
-    },
-    {
-      "id": 4,
-      "type": "stat",
-      "title": "Active Instances",
-      "description": "Number of monitored instances",
-      "gridPos": {
-        "x": 12,
-        "y": 1,
-        "w": 6,
-        "h": 4
+          },
+          "unit": "short"
+        },
+        "overrides": []
       },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 10
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
           "expr": "count(up{job=\"node-exporter\"})",
@@ -155,136 +468,151 @@
           "refId": "A"
         }
       ],
-      "options": {
-        "graphMode": "none",
-        "colorMode": "value",
-        "textMode": "value_and_name",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+      "title": "Active Instances",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
       },
+      "description": "CO2 savings potential by running in the cleanest region instead of the dirtiest region",
       "fieldConfig": {
         "defaults": {
-          "unit": "short",
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
+          "decimals": 2,
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "value": null,
-                "color": "red"
+                "color": "green",
+                "value": 0
               },
               {
-                "value": 3,
-                "color": "green"
+                "color": "red",
+                "value": 80
               }
             ]
-          }
-        }
-      }
-    },
-    {
-      "id": 5,
-      "type": "stat",
-      "title": "Potential Savings vs Germany",
-      "description": "CO2 saved by running in Sweden instead of Germany",
-      "gridPos": {
-        "x": 18,
-        "y": 1,
-        "w": 6,
-        "h": 4
+          },
+          "unit": "g/h"
+        },
+        "overrides": []
       },
-      "targets": [
-        {
-          "expr": "sum(instance_co2_emissions_g_hour{country=\"DE\"}) - sum(instance_co2_emissions_g_hour{country=\"SE\"})",
-          "legendFormat": "Savings",
-          "refId": "A"
-        }
-      ],
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 10
+      },
+      "id": 5,
       "options": {
-        "graphMode": "area",
         "colorMode": "value",
-        "textMode": "value_and_name",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "values": false,
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "g/h",
-          "decimals": 2,
-          "color": {
-            "mode": "palette-classic"
-          }
-        }
-      }
-    },
-    {
-      "id": 6,
-      "type": "row",
-      "title": "\"What If\" Analysis - Regional Comparison",
-      "gridPos": {
-        "x": 0,
-        "y": 5,
-        "w": 24,
-        "h": 1
-      },
-      "collapsed": false
-    },
-    {
-      "id": 7,
-      "type": "timeseries",
-      "title": "CO2 Emissions: Sweden (Actual) vs Other Regions",
-      "description": "Compare actual emissions in Sweden against \"what if\" scenarios in other EU regions",
-      "gridPos": {
-        "x": 0,
-        "y": 6,
-        "w": 12,
-        "h": 8
-      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
-          "expr": "sum by(country) (instance_co2_emissions_g_hour)",
-          "legendFormat": "{{country}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "expr": "max(sum by(country) (instance_co2_emissions_g_hour)) - min(sum by(country) (instance_co2_emissions_g_hour))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Savings",
+          "queryType": "range",
+          "range": true,
           "refId": "A"
         }
       ],
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "table",
-          "placement": "bottom",
-          "calcs": [
-            "lastNotNull",
-            "mean"
-          ]
-        }
+      "title": "Highest vs Lowest CO2 Country",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
       },
+      "id": 6,
+      "panels": [],
+      "title": "\"What If\" Analysis - Regional Comparison",
+      "type": "row"
+    },
+    {
+      "description": "Compare actual emissions in Sweden against \"what if\" scenarios in other EU regions",
       "fieldConfig": {
         "defaults": {
-          "unit": "g/h",
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "fillOpacity": 20,
-            "lineWidth": 2,
-            "showPoints": "never"
-          },
           "color": {
             "mode": "palette-classic"
-          }
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "g/h"
         },
         "overrides": [
           {
@@ -352,19 +680,31 @@
             ]
           }
         ]
-      }
-    },
-    {
-      "id": 8,
-      "type": "bargauge",
-      "title": "\"What If\" Regional Comparison (Current)",
-      "description": "Current CO2 emissions if workload ran in different regions",
-      "gridPos": {
-        "x": 12,
-        "y": 6,
-        "w": 12,
-        "h": 8
       },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
           "expr": "sum by(country) (instance_co2_emissions_g_hour)",
@@ -372,118 +712,176 @@
           "refId": "A"
         }
       ],
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "text": {
-          "valueSize": 16
-        }
+      "title": "CO2 Emissions: Sweden (Actual) vs Other Regions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
       },
+      "description": "Current CO2 emissions if workload ran in different regions",
       "fieldConfig": {
         "defaults": {
-          "unit": "g/h",
           "decimals": 2,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "value": null,
-                "color": "green"
-              },
-              {
-                "value": 1,
-                "color": "yellow"
-              },
-              {
-                "value": 2,
-                "color": "orange"
-              },
-              {
-                "value": 3,
-                "color": "red"
-              }
-            ]
-          },
           "mappings": [
             {
-              "type": "value",
               "options": {
-                "SE": {
-                  "text": "Sweden (ACTUAL)"
-                },
                 "DE": {
                   "text": "Germany (What If)"
+                },
+                "FR": {
+                  "text": "France (What If)"
                 },
                 "GB": {
                   "text": "United Kingdom (What If)"
                 },
-                "FR": {
-                  "text": "France (What If)"
+                "SE": {
+                  "text": "Sweden (ACTUAL)"
                 }
-              }
+              },
+              "type": "value"
             }
-          ]
-        }
-      }
-    },
-    {
-      "id": 9,
-      "type": "row",
-      "title": "Live Grid Carbon Intensity",
-      "gridPos": {
-        "x": 0,
-        "y": 14,
-        "w": 24,
-        "h": 1
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "orange",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "g/h"
+        },
+        "overrides": []
       },
-      "collapsed": false
-    },
-    {
-      "id": 10,
-      "type": "timeseries",
-      "title": "Grid Carbon Intensity by Region (24h Average)",
-      "description": "Live carbon intensity data from electricity grids",
       "gridPos": {
-        "x": 0,
-        "y": 15,
-        "w": 24,
-        "h": 8
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 15
       },
+      "id": 8,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {
+          "valueSize": 16
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
-          "expr": "grid_carbon_intensity_g_kwh",
+          "expr": "sum by(country) (instance_co2_emissions_g_hour)",
           "legendFormat": "{{country}}",
           "refId": "A"
         }
       ],
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "table",
-          "placement": "right",
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "min",
-            "max"
-          ]
-        }
+      "title": "Regional Comparison (Current)",
+      "type": "bargauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
       },
+      "id": 9,
+      "panels": [],
+      "title": "Live Grid Carbon Intensity",
+      "type": "row"
+    },
+    {
+      "description": "Live carbon intensity data from electricity grids",
       "fieldConfig": {
         "defaults": {
-          "unit": "gCO₂/kWh",
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "lineInterpolation": "smooth",
             "fillOpacity": 15,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
             "lineWidth": 2,
-            "showPoints": "never"
-          }
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "gCO₂/kWh"
         },
         "overrides": [
           {
@@ -563,121 +961,188 @@
             ]
           }
         ]
-      }
-    },
-    {
-      "id": 11,
-      "type": "row",
-      "title": "AI-Powered Optimization Insights (Amazon Bedrock)",
+      },
       "gridPos": {
-        "x": 0,
-        "y": 23,
+        "h": 10,
         "w": 24,
-        "h": 1
-      },
-      "collapsed": false
-    },
-    {
-      "id": 12,
-      "type": "text",
-      "title": "🤖 AI Optimization Insight - Web Server",
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
-      "gridPos": {
         "x": 0,
-        "y": 24,
-        "w": 8,
-        "h": 8
+        "y": 24
       },
+      "id": 10,
       "options": {
-        "mode": "markdown",
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*"
-      }
-    },
-    {
-      "id": 13,
-      "type": "text",
-      "title": "🤖 AI Optimization Insight - API Server",
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
-      "gridPos": {
-        "x": 8,
-        "y": 24,
-        "w": 8,
-        "h": 8
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "options": {
-        "mode": "markdown",
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*"
-      }
-    },
-    {
-      "id": 14,
-      "type": "text",
-      "title": "🤖 AI Optimization Insight - Compute Worker",
-      "description": "Real-time AI-powered optimization suggestions from Amazon Bedrock",
-      "gridPos": {
-        "x": 16,
-        "y": 24,
-        "w": 8,
-        "h": 8
-      },
-      "options": {
-        "mode": "markdown",
-        "content": "**Loading AI insights...**\n\nTo display AI insights:\n1. Add a JSON API data source pointing to your Carbon Service endpoint\n2. Configure the data source URL: `http://YOUR_IP:8080/ai-insight`\n3. The AI will analyze current emissions and provide optimization recommendations\n\n*Powered by Amazon Bedrock (Claude 3)*"
-      }
-    },
-    {
-      "id": 15,
-      "type": "row",
-      "title": "Per-Instance Metrics",
-      "gridPos": {
-        "x": 0,
-        "y": 32,
-        "w": 24,
-        "h": 1
-      },
-      "collapsed": false
-    },
-    {
-      "id": 16,
-      "type": "timeseries",
-      "title": "CO2 Emissions by Instance Role (Sweden)",
-      "description": "CO2 emissions breakdown by instance role",
-      "gridPos": {
-        "x": 0,
-        "y": 33,
-        "w": 12,
-        "h": 8
-      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
-          "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
-          "legendFormat": "{{role}}",
+          "expr": "grid_carbon_intensity_g_kwh",
+          "legendFormat": "{{country}}",
           "refId": "A"
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "g/h",
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "fillOpacity": 20,
-            "lineWidth": 2
-          }
-        }
-      }
+      "title": "Grid Carbon Intensity by Region (24h Average)",
+      "type": "timeseries"
     },
     {
-      "id": 17,
-      "type": "timeseries",
-      "title": "CPU Usage by Instance",
-      "description": "CPU utilization per instance",
+      "collapsed": false,
       "gridPos": {
-        "x": 12,
-        "y": 33,
-        "w": 12,
-        "h": 8
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 34
       },
+      "id": 11,
+      "panels": [],
+      "title": "AI-Powered Optimization Insights (Amazon Bedrock)",
+      "type": "row"
+    },
+    {
+      "description": "AI-powered conversational insights for carbon optimization",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 12,
+      "options": {
+        "cellHeight": "md",
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "### 🤖 Carbon AI Assistant\n\n---\n\n**You:** Analyze my web server's carbon footprint\n\n**AI Assistant:** I've analyzed your web server in Sweden (eu-north-1). Here's what I found:\n\n✅ **Good News:** You're in one of the cleanest regions!\n- Current emissions: ~3.3 g CO₂/hour\n- Grid intensity: 42 gCO₂/kWh (excellent)\n\n---\n\n**You:** How can I optimize further?\n\n**AI Assistant:** Here are my recommendations:\n\n**💡 Immediate Actions:**\n1. **Stay in Sweden** - You're already in the optimal region\n2. **CPU Optimization** - Your CPU usage varies; consider:\n   - Auto-scaling during low-traffic periods\n   - Container right-sizing\n\n**📊 Potential Savings:**\n- Migration to Germany would **increase** emissions by ~226%\n- Better to optimize workload efficiency here\n\n**🎯 Next Steps:**\n- Monitor CPU patterns for optimization\n- Consider renewable energy credits\n- Schedule batch jobs during off-peak grid hours\n\n---\n\n*💬 Powered by Amazon Bedrock (Claude 3)*",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "mode": "markdown",
+        "showHeader": true
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
+      "title": "🤖 Daily updates",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 56
+      },
+      "id": 15,
+      "panels": [],
+      "title": "Per-Instance Metrics",
+      "type": "row"
+    },
+    {
+      "description": "CPU utilization per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 57
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
       "targets": [
         {
           "expr": "100 - (avg by(role) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
@@ -685,19 +1150,120 @@
           "refId": "A"
         }
       ],
+      "title": "CPU Usage by Instance",
+      "type": "timeseries"
+    },
+    {
+      "description": "CO2 emissions breakdown by instance role",
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
             "lineInterpolation": "smooth",
-            "fillOpacity": 10,
-            "lineWidth": 2
-          }
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "g/h"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 57
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
         }
-      }
+      },
+      "pluginVersion": "12.4.0-19174562009.patch3",
+      "targets": [
+        {
+          "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
+          "legendFormat": "{{role}}",
+          "refId": "A"
+        }
+      ],
+      "title": "CO2 Emissions by Instance Role (Sweden)",
+      "type": "timeseries"
     }
-  ]
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 42,
+  "tags": [
+    "carbon",
+    "sustainability",
+    "ai",
+    "aws",
+    "hackathon"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "CarbonShift - AI-Powered Carbon Dashboard",
+  "uid": "e3e2509f-0dec-4762-af6a-e4ab507fd8aa",
+  "version": 16
 }
