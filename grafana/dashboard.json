@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 27,
   "links": [],
   "panels": [
     {
@@ -90,11 +90,11 @@
               },
               {
                 "color": "yellow",
-                "value": 0.02
+                "value": 0.011
               },
               {
                 "color": "red",
-                "value": 0.05
+                "value": 0.012
               }
             ]
           },
@@ -131,7 +131,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "columns": [
@@ -146,7 +146,7 @@
               "type": "number"
             }
           ],
-          "data": "[\r\n    {\"country\": \"Germany\", \"price_per_hour\": 0.012},\r\n    {\"country\": \"France\", \"price_per_hour\": 0.0118},\r\n    {\"country\": \"Britain\", \"price_per_hour\": 0.0118},\r\n    {\"country\": \"Sweden\", \"price_per_hour\": 0.0784}\r\n]",
+          "data": "[\n    {\"country\": \"Germany (Frankfurt)\", \"price_per_hour\": 0.012},\n    {\"country\": \"France (Paris)\", \"price_per_hour\": 0.0118},\n    {\"country\": \"Britain\", \"price_per_hour\": 0.0118},\n    {\"country\": \"Sweden\", \"price_per_hour\": 0.0108}\n]",
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "grafanacloud-infinity"
@@ -168,15 +168,15 @@
           }
         }
       ],
-      "title": "Price comparison",
+      "title": "Price comparison - EC2 t3.micro Instances on AWS (Linux Base)",
       "type": "barchart"
     },
     {
       "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "grafanacloud-infinity"
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
       },
-      "description": "Shows how many grams of CO2 per hour you emit for each dollar spent. Lower is better - less CO2 emissions per dollar means cleaner energy for your money!",
+      "description": "Real-time calculation showing grams of CO2 per hour per dollar spent. Combines live grid carbon intensity with EC2 t3.micro pricing. Lower is better - cleaner energy per dollar!",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -212,7 +212,7 @@
         "x": 12,
         "y": 2
       },
-      "id": 19,
+      "id": 22,
       "options": {
         "displayMode": "gradient",
         "legend": {
@@ -231,60 +231,72 @@
             "lastNotNull"
           ],
           "fields": "",
-          "values": true
+          "values": false
         },
         "showUnfilled": true,
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
-          "columns": [
-            {
-              "selector": "country",
-              "text": "country",
-              "type": "string"
-            },
-            {
-              "selector": "co2_per_usd",
-              "text": "co2_per_usd",
-              "type": "number"
-            }
-          ],
-          "data": "[\r\n    {\"country\": \"Germany\", \"co2_per_usd\": 256.7},\r\n    {\"country\": \"France\", \"co2_per_usd\": 126.3},\r\n    {\"country\": \"Britain\", \"co2_per_usd\": 222.0},\r\n    {\"country\": \"Sweden\", \"co2_per_usd\": 42.2}\r\n]",
           "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "grafanacloud-infinity"
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
           },
-          "filters": [],
-          "format": "table",
-          "global_query_id": "",
+          "editorMode": "code",
+          "expr": "sum(instance_co2_emissions_g_hour{country=\"DE\"}) / 0.012",
           "hide": false,
-          "parser": "backend",
+          "instant": false,
+          "legendFormat": "Germany",
+          "queryType": "range",
           "range": true,
-          "refId": "A",
-          "root_selector": "",
-          "source": "inline",
-          "type": "json",
-          "url": "",
-          "url_options": {
-            "data": "",
-            "method": "GET"
-          }
-        }
-      ],
-      "title": "Carbon Intensity per Dollar (g CO2/h per USD)",
-      "transformations": [
+          "refId": "A"
+        },
         {
-          "disabled": false,
-          "id": "rowsToFields",
-          "options": {
-            "nameField": "country",
-            "valueField": "efficiency"
-          }
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "sum(instance_co2_emissions_g_hour{country=\"FR\"}) / 0.0118\n",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "France",
+          "queryType": "range",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "sum(instance_co2_emissions_g_hour{country=\"GB\"}) / 0.0118",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Britain",
+          "queryType": "range",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "sum(instance_co2_emissions_g_hour{country=\"SE\"}) / 0.0108\n",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sweden",
+          "queryType": "range",
+          "range": true,
+          "refId": "D"
         }
       ],
+      "title": "Carbon Intensity per Dollar spent (grams of CO2)",
       "type": "bargauge"
     },
     {
@@ -338,7 +350,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "expr": "sum(instance_co2_emissions_g_hour{country=\"SE\"})",
@@ -400,10 +412,10 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
-          "expr": "grid_carbon_intensity_g_kwh{country=\"SE\"}",
+          "expr": "avg(grid_carbon_intensity_g_kwh{country=\"SE\"})",
           "legendFormat": "Sweden",
           "refId": "A"
         }
@@ -460,7 +472,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "expr": "count(up{job=\"node-exporter\"})",
@@ -525,7 +537,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "datasource": {
@@ -704,7 +716,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "expr": "sum by(country) (instance_co2_emissions_g_hour)",
@@ -802,11 +814,13 @@
         },
         "valueMode": "color"
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
+          "editorMode": "code",
           "expr": "sum by(country) (instance_co2_emissions_g_hour)",
           "legendFormat": "{{country}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -827,6 +841,10 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
       "description": "Live carbon intensity data from electricity grids",
       "fieldConfig": {
         "defaults": {
@@ -987,11 +1005,13 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
-          "expr": "grid_carbon_intensity_g_kwh",
+          "editorMode": "code",
+          "expr": "avg by(country) (grid_carbon_intensity_g_kwh)",
           "legendFormat": "{{country}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1044,7 +1064,7 @@
         "mode": "markdown",
         "showHeader": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "title": "🤖 Daily updates",
       "type": "text"
     },
@@ -1062,6 +1082,10 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
       "description": "CPU utilization per instance",
       "fieldConfig": {
         "defaults": {
@@ -1142,11 +1166,13 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
+          "editorMode": "code",
           "expr": "100 - (avg by(role) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "{{role}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1232,7 +1258,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch3",
+      "pluginVersion": "12.4.0-19174562009.patch4",
       "targets": [
         {
           "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
@@ -1265,5 +1291,5 @@
   "timezone": "browser",
   "title": "CarbonShift - AI-Powered Carbon Dashboard",
   "uid": "e3e2509f-0dec-4762-af6a-e4ab507fd8aa",
-  "version": 16
+  "version": 41
 }
