@@ -73,7 +73,7 @@ PRICES_USD_H = {
     'DE': 0.0120,
     'FR': 0.0118,
     'GB': 0.0118,
-    'SE': 0.0784
+    'SE': 0.0108
 }
 
 NOWTRICITY_API = "https://api.nowtricity.com/v1"
