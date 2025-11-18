@@ -58,9 +58,9 @@ region_score_metric = Gauge(
     ['region', 'metric']
 )
 
-# Constants
-IDLE_POWER_WATTS = 6.0
-MAX_POWER_WATTS = 25.0
+# Constants - Realistic t3.micro power model
+IDLE_POWER_WATTS = 3.5   # Idle + infrastructure overhead
+MAX_POWER_WATTS = 18.0   # CPU + RAM + network at max load
 
 COUNTRIES = {
     'SE': 'Sweden',
