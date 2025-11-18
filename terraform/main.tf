@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -102,13 +102,17 @@ resource "aws_security_group" "carbon_shift" {
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
+  key_name               = length(var.ssh_key_name) > 0 ? var.ssh_key_name : null
   iam_instance_profile   = aws_iam_instance_profile.carbon_shift.name
   vpc_security_group_ids = [aws_security_group.carbon_shift.id]
-  user_data              = templatefile("${path.module}/user_data.sh", {
-    role               = "web-server"
-    grafana_cloud_url  = var.grafana_cloud_prometheus_url
-    grafana_cloud_user = var.grafana_cloud_prometheus_user
-    grafana_cloud_key  = var.grafana_cloud_api_key
+  user_data = templatefile("${path.module}/user_data.sh", {
+    role                    = "web-server"
+    grafana_cloud_url       = var.grafana_cloud_prometheus_url
+    grafana_cloud_user      = var.grafana_cloud_prometheus_user
+    grafana_cloud_key       = var.grafana_cloud_api_key
+    enable_dynamic_load     = var.enable_dynamic_load
+    ai_auto_refresh_seconds = var.ai_auto_refresh_seconds
+    balance_weight          = var.balance_weight
   })
 
   tags = {
@@ -121,13 +125,17 @@ resource "aws_instance" "web_server" {
 resource "aws_instance" "api_server" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
+  key_name               = length(var.ssh_key_name) > 0 ? var.ssh_key_name : null
   iam_instance_profile   = aws_iam_instance_profile.carbon_shift.name
   vpc_security_group_ids = [aws_security_group.carbon_shift.id]
-  user_data              = templatefile("${path.module}/user_data.sh", {
-    role               = "api-server"
-    grafana_cloud_url  = var.grafana_cloud_prometheus_url
-    grafana_cloud_user = var.grafana_cloud_prometheus_user
-    grafana_cloud_key  = var.grafana_cloud_api_key
+  user_data = templatefile("${path.module}/user_data.sh", {
+    role                    = "api-server"
+    grafana_cloud_url       = var.grafana_cloud_prometheus_url
+    grafana_cloud_user      = var.grafana_cloud_prometheus_user
+    grafana_cloud_key       = var.grafana_cloud_api_key
+    enable_dynamic_load     = var.enable_dynamic_load
+    ai_auto_refresh_seconds = var.ai_auto_refresh_seconds
+    balance_weight          = var.balance_weight
   })
 
   tags = {
@@ -140,13 +148,17 @@ resource "aws_instance" "api_server" {
 resource "aws_instance" "compute_worker" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
+  key_name               = length(var.ssh_key_name) > 0 ? var.ssh_key_name : null
   iam_instance_profile   = aws_iam_instance_profile.carbon_shift.name
   vpc_security_group_ids = [aws_security_group.carbon_shift.id]
-  user_data              = templatefile("${path.module}/user_data.sh", {
-    role               = "compute-worker"
-    grafana_cloud_url  = var.grafana_cloud_prometheus_url
-    grafana_cloud_user = var.grafana_cloud_prometheus_user
-    grafana_cloud_key  = var.grafana_cloud_api_key
+  user_data = templatefile("${path.module}/user_data.sh", {
+    role                    = "compute-worker"
+    grafana_cloud_url       = var.grafana_cloud_prometheus_url
+    grafana_cloud_user      = var.grafana_cloud_prometheus_user
+    grafana_cloud_key       = var.grafana_cloud_api_key
+    enable_dynamic_load     = var.enable_dynamic_load
+    ai_auto_refresh_seconds = var.ai_auto_refresh_seconds
+    balance_weight          = var.balance_weight
   })
 
   tags = {

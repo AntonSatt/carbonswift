@@ -1,6 +1,6 @@
 # IAM Role for EC2 instances with Bedrock permissions
 resource "aws_iam_role" "carbon_shift" {
-  name               = "carbon-shift-ec2-role"
+  name = "carbon-shift-ec2-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
