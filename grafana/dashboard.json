@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 27,
+  "id": 0,
   "links": [],
   "panels": [
     {
@@ -981,7 +981,7 @@
         ]
       },
       "gridPos": {
-        "h": 10,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 24
@@ -990,14 +990,12 @@
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
-            "mean",
-            "min",
-            "max"
+            "mean"
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "width": 400
         },
         "tooltip": {
           "hideZeros": false,
@@ -1024,7 +1022,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 29
       },
       "id": 11,
       "panels": [],
@@ -1041,7 +1039,7 @@
         "h": 21,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 30
       },
       "id": 12,
       "options": {
@@ -1074,7 +1072,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 51
       },
       "id": 15,
       "panels": [],
@@ -1150,7 +1148,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 57
+        "y": 52
       },
       "id": 17,
       "options": {
@@ -1242,7 +1240,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 57
+        "y": 52
       },
       "id": 16,
       "options": {
@@ -1291,5 +1289,5 @@
   "timezone": "browser",
   "title": "CarbonShift - AI-Powered Carbon Dashboard",
   "uid": "e3e2509f-0dec-4762-af6a-e4ab507fd8aa",
-  "version": 41
+  "version": 43
 }
