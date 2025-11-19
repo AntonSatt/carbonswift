@@ -90,11 +90,11 @@
               },
               {
                 "color": "yellow",
-                "value": 0.011
+                "value": 0.035
               },
               {
                 "color": "red",
-                "value": 0.012
+                "value": 0.036
               }
             ]
           },
@@ -131,7 +131,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "columns": [
@@ -146,7 +146,7 @@
               "type": "number"
             }
           ],
-          "data": "[\n    {\"country\": \"Germany (Frankfurt)\", \"price_per_hour\": 0.012},\n    {\"country\": \"France (Paris)\", \"price_per_hour\": 0.0118},\n    {\"country\": \"Britain\", \"price_per_hour\": 0.0118},\n    {\"country\": \"Sweden\", \"price_per_hour\": 0.0108}\n]",
+          "data": "[\n    {\"country\": \"Germany (Frankfurt)\", \"price_per_hour\": 0.036},\n    {\"country\": \"France (Paris)\", \"price_per_hour\": 0.0354},\n    {\"country\": \"Britain\", \"price_per_hour\": 0.0354},\n    {\"country\": \"Sweden\", \"price_per_hour\": 0.0324}\n]",
           "datasource": {
             "type": "yesoreyeram-infinity-datasource",
             "uid": "grafanacloud-infinity"
@@ -168,7 +168,7 @@
           }
         }
       ],
-      "title": "Price comparison - EC2 t3.micro Instances on AWS (Linux Base)",
+      "title": "Price comparison - EC2 t3.micro Instances on AWS (Linux Base) - Per Hour",
       "type": "barchart"
     },
     {
@@ -237,7 +237,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "datasource": {
@@ -350,7 +350,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "expr": "sum(instance_co2_emissions_g_hour{country=\"SE\"})",
@@ -412,7 +412,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "expr": "avg(grid_carbon_intensity_g_kwh{country=\"SE\"})",
@@ -472,7 +472,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "expr": "count(up{job=\"node-exporter\"})",
@@ -537,7 +537,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "datasource": {
@@ -716,7 +716,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "expr": "sum by(country) (instance_co2_emissions_g_hour)",
@@ -814,7 +814,7 @@
         },
         "valueMode": "color"
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "editorMode": "code",
@@ -1003,7 +1003,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "editorMode": "code",
@@ -1062,7 +1062,7 @@
         "mode": "markdown",
         "showHeader": true
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "title": "🤖 Daily updates",
       "type": "text"
     },
@@ -1164,7 +1164,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "editorMode": "code",
@@ -1256,7 +1256,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.0-19174562009.patch4",
+      "pluginVersion": "12.4.0-19378664917",
       "targets": [
         {
           "expr": "instance_co2_emissions_g_hour{country=\"SE\"}",
@@ -1282,12 +1282,12 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "CarbonShift - AI-Powered Carbon Dashboard",
   "uid": "e3e2509f-0dec-4762-af6a-e4ab507fd8aa",
-  "version": 43
+  "version": 48
 }
