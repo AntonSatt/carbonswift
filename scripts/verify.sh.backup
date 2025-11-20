@@ -82,6 +82,40 @@ test_endpoint "API Server Carbon Service" "http://$API_IP:8080/health" "200"
 test_endpoint "Compute Worker Carbon Service" "http://$COMPUTE_IP:8080/health" "200"
 
 echo ""
+echo "=== Carbon Metrics Tests ==="
+test_metrics_content "Web Server" "http://$WEB_IP:8080/metrics"
+test_metrics_content "API Server" "http://$API_IP:8080/metrics"
+test_metrics_content "Compute Worker" "http://$COMPUTE_IP:8080/metrics"
+
+echo ""
+echo "=== AI Insight Tests ==="
+test_endpoint "Web Server AI Insight" "http://$WEB_IP:8080/ai-insight" "200"
+test_endpoint "API Server AI Insight" "http://$API_IP:8080/ai-insight" "200"
+test_endpoint "Compute Worker AI Insight" "http://$COMPUTE_IP:8080/ai-insight" "200"
+
+echo ""
+echo "=== Recommendation API Tests ==="
+test_endpoint "Web Server Recommendation" "http://$WEB_IP:8080/recommendation" "200"
+test_endpoint "API Server Recommendation" "http://$API_IP:8080/recommendation" "200"
+test_endpoint "Compute Worker Recommendation" "http://$COMPUTE_IP:8080/recommendation" "200"
+
+echo ""
+echo "=== Sample Data ==="
+echo ""
+echo "Sample Carbon Metrics (Web Server):"
+curl -s "http://$WEB_IP:8080/metrics" | grep -E "(grid_carbon_intensity|instance_co2_emissions)" | head -10
+
+echo ""
+echo ""
+echo "Sample AI Insight (Web Server):"
+curl -s "http://$WEB_IP:8080/ai-insight" | jq '.' 2>/dev/null || curl -s "http://$WEB_IP:8080/ai-insight"
+
+echo ""
+echo ""
+echo "Sample Recommendation (Web Server):"
+curl -s "http://$WEB_IP:8080/recommendation" | jq '.' 2>/dev/null || curl -s "http://$WEB_IP:8080/recommendation"
+
+echo ""
 echo "=========================================="
 echo "  Verification Complete"
 echo "=========================================="
